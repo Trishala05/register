@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Register</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 350px;
+            position: relative;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid #3498db;
+            background: none;
+            outline: none;
+            color: #333;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .button-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+        }
+        .button-container button:hover {
+            background-color: #2980b9;
+        }
+        .toggle-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #3498db;
+            font-size: 16px;
+            margin-top: 10px;
+            text-decoration: underline;
+            text-transform: uppercase;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .remember-me input {
+            margin-right: 5px;
+        }
+        .navbar {
+            background-color: rgba(52, 152, 219, 0.8);
+            padding: 10px 0;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+        .background-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+        .background-shapes::before {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .shape1 {
+            top: 20%;
+            left: 10%;
+            animation: moveShape1 8s infinite linear;
+        }
+        .shape2 {
+            top: 30%;
+            left: 80%;
+            animation: moveShape2 10s infinite linear;
+        }
+        .shape3 {
+            top: 60%;
+            left: 30%;
+            animation: moveShape3 12s infinite linear;
+        }
+        @keyframes moveShape1 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        @keyframes moveShape2 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        @keyframes moveShape3 {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+        <div class="shape3"></div>
+    </div>
+    <div class="navbar">
+        <a href="#" onclick="showLogin()">Login</a>
+        <a href="#" onclick="showRegister()">Register</a>
+    </div>
+    <div class="container" id="login">
+        <div class="card">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">Username:</label>
+                    <input type="text" id="loginUsername" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password">
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="rememberPassword">
+                    <label for="rememberPassword">Remember Password</label>
+                </div>
+                <div class="button-container">
+                    <button type="button" onclick="login()">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="register" style="display: none;">
+        <div class="card">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerUsername">Username:</label>
+                    <input type="text" id="registerUsername" placeholder="Choose a username">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" placeholder="Choose a password">
+                </div>
+                <div class="button-container">
+                    <button type="button" class="toggle-button" onclick="toggleForm()">Back to Login</button>
+                    <button type="button" onclick="register()">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showLogin() {
+            document.getElementById("login").style.display = "block";
+            document.getElementById("register").style.display = "none";
+        }
+
+        function showRegister() {
+            document.getElementById("login").style.display = "none";
+            document.getElementById("register").style.display = "block";
+        }
+
+        function toggleForm() {
+            const loginContainer = document.getElementById("login");
+            const registerContainer = document.getElementById("register");
+
+            if (loginContainer.style.display === "none") {
+                loginContainer.style.display = "block";
+                registerContainer.style.display = "none";
+            } else {
+                loginContainer.style.display = "none";
+                registerContainer.style.display = "block";
+            }
+        }
+
+        function login() {
+            // Handle login logic here
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+
+            // Example: Check username and password against a predefined value
+            if (username === "demo" && password === "password") {
+                alert("Login successful!");
+                // Redirect to a dashboard or home page
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        }
+
+        function register() {
+            // Handle registration logic here
+            const newUsername = document.getElementById("registerUsername").value;
+            const newPassword = document.getElementById("registerPassword").value;
+
+            // Example: Store the new user data or send it to a server for registration
+            alert("Registered successfully! You can now log in with your new account.");
+        }
+    </script>
+</body>
+</html>
